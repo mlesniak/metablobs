@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mlesniak</groupId>
-    <artifactId>graphics</artifactId>
+    <artifactId>metablob</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>graphics</name>
+    <name>metablob</name>
     <url>https://mlesniak.com</url>
 
     <properties>
