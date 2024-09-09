@@ -70,7 +70,7 @@ abstract class PixelRenderer {
                 canvas.repaint();
                 long elapsedTime = System.currentTimeMillis() - startTime;
                 long sleepTime = FRAME_TIME - elapsedTime;
-                if (sleepTime > 0) {
+                if (sleepTime >= 0) {
                     try {
                         Thread.sleep(sleepTime);
                     } catch (InterruptedException e) {
@@ -89,13 +89,27 @@ abstract class PixelRenderer {
     }
 
     protected void setPixel(int x, int y, int r, int g, int b) {
+        if (r > 0xFF) {
+            r = 0xFF;
+        }
+        if (g > 0xFF) {
+            g = 0xFF;
+        }
+        if (b > 0xFF) {
+            b = 0xFF;
+        }
         int c = (r << 16) + (g << 8) + b;
         image.setRGB(x, y, c);
     }
 
     protected void setPixel(int x, int y, double gray) {
-        int c = clamp((int) (gray * 255), 0, 255);
-        setPixel(x, y, c, c, c);
+        int c = (int) (gray * 0xFF);
+        if (c > 0xFF) {
+            c = 0xFF;
+        }
+        int cn = (c << 16) + (c << 8) + c;
+        image.setRGB(x, y, cn);
+
     }
 
     static int clamp(int v, int min, int max, int min2, int max2) {
@@ -108,11 +122,11 @@ abstract class PixelRenderer {
         return min2 + r * (max2 - min2);
     }
 
-    static int clamp(int v, int min, int max) {
-        if (v < min) {
+    static <T extends Comparable<T>> T clamp(T v, T min, T max) {
+        if (v.compareTo(min) < 0) {
             return min;
         }
-        if (v > max) {
+        if (v.compareTo(max) > 0) {
             return max;
         }
         return v;
@@ -132,6 +146,10 @@ abstract class PixelRenderer {
 
     public static double random(double min, double max) {
         return Math.random() * (max-min) + min;
+    }
+
+    public static double dist(double x, double y, double a, double b) {
+        return Math.sqrt((x - a) * (x - a) + (y - b) * (y - b));
     }
 
     abstract void update();

@@ -3,9 +3,12 @@ package com.mlesniak;
 import static com.mlesniak.PixelRenderer.random;
 
 public class Blob {
-    public double x, y, radius;
-    public double vx = random(-10, 10);
-    public double vy = random(-10, 10);
+    double x, y, radius;
+    double vx = random(-10, 10);
+    double vy = random(-10, 10);
+    int r = (int) random(0xFF);
+    int g = (int) random(0xFF);
+    int b = (int) random(0xFF);
 
     public Blob(double x, double y, double radius) {
         this.x = x;
@@ -14,10 +17,10 @@ public class Blob {
     }
 
     public void update(PixelRenderer main) {
-        if (x < 0 || x > main.width) {
+        if (x - radius < 0 || x + radius > main.width) {
             vx *= -1;
         }
-        if (y < 0 || y > main.height) {
+        if (y - radius < 0 || y + radius > main.height) {
             vy *= -1;
         }
 

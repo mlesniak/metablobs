@@ -7,12 +7,18 @@ public class Main extends PixelRenderer {
                 .show();
     }
 
-    private Blob[] blobs = new Blob[]{
-            new Blob(random(width), random(height), random(10, 50)),
-            new Blob(random(width), random(height), random(10, 50)),
-            new Blob(random(width), random(height), random(10, 50)),
-            new Blob(random(width), random(height), random(10, 50)),
-            new Blob(random(width), random(height), random(10, 50)),
+    private final Blob[] blobs = new Blob[]{
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
+            new Blob(random(width), random(height), 10),
     };
 
     @Override
@@ -20,7 +26,6 @@ public class Main extends PixelRenderer {
         if (key == 27) {
             exit();
         }
-
         for (Blob blob : blobs) {
             blob.update(this);
         }
@@ -29,18 +34,13 @@ public class Main extends PixelRenderer {
                 double c = 0.0;
                 for (Blob blob : blobs) {
                     var d = dist(x, y, blob.x, blob.y);
-                    if (d == 0) {
-                        c = 0;
-                    } else {
+                    if (d != 0) {
                         c += blob.radius / d;
                     }
                 }
+
                 setPixel(x, y, c);
             }
         }
-    }
-
-    static double dist(double x, double y, double a, double b) {
-        return Math.sqrt((x - a) * (x - a) + (y - b) * (y - b));
     }
 }
