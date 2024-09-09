@@ -6,9 +6,6 @@ public class Blob {
     double x, y, radius;
     double vx = random(-10, 10);
     double vy = random(-10, 10);
-    int r = (int) random(0xFF);
-    int g = (int) random(0xFF);
-    int b = (int) random(0xFF);
 
     public Blob(double x, double y, double radius) {
         this.x = x;

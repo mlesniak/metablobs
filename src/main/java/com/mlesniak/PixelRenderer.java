@@ -6,7 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
-abstract class PixelRenderer {
+public abstract class PixelRenderer {
     private static final int FPS = 60;
     private static final long FRAME_TIME = 1000 / FPS;
 
@@ -149,7 +149,15 @@ abstract class PixelRenderer {
     }
 
     public static double dist(double x, double y, double a, double b) {
-        return Math.sqrt((x - a) * (x - a) + (y - b) * (y - b));
+        double v = x - a;
+        double w = y - b;
+        return Math.sqrt(v * v + w * w);
+    }
+
+    public static double distSquared(double x, double y, double a, double b) {
+        double v = x - a;
+        double w = y - b;
+        return v * v + w * w;
     }
 
     abstract void update();
